@@ -2,6 +2,8 @@
 
 理解与评测 DokiWorlds 框架及其中多个故事的工作台。当前是可运行的首版工程：本地浏览器执行器、网页任务面板、可复用游玩知识库、独立玩家决策与评审接口。
 
+线上私有工作台：https://dokiplayer-lab-junbai.tinyrice9.chatgpt.site （使用所有者的 ChatGPT 账号登录）。
+
 ## 快速开始
 
 需要 Node.js 22.9+。
@@ -42,6 +44,8 @@ node src/build-web.js
 ```
 
 `npm start` 自动加载 `.env`；CLI 单独调用时使用 `node --env-file=.env`。知识修改后运行 `node src/build-web.js` 同步网页数据，再按 Sites 工作流发布 `web/`。
+
+Sites 使用独立发布检出目录（本次位于工作区 `work/dokiplayer-site`），把 `web/` 内容同步过去再发布；不要在本 GitHub 仓库的 `web/` 内初始化嵌套 Git 仓库。保留 `web/.openai/hosting.json` 中的同一项目 ID。
 
 ## 持续学习
 
