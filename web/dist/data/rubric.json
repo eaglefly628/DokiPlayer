@@ -1,0 +1,108 @@
+{
+  "version": "draft-0.2.0",
+  "scale": {
+    "min": 0,
+    "max": 100
+  },
+  "anchors": {
+    "0-19": "基本失效，有明确证据",
+    "20-39": "存在严重问题",
+    "40-59": "明显缺陷影响体验",
+    "60-74": "基本成立，优缺点并存",
+    "75-89": "表现良好，有具体证据",
+    "90-100": "持续优秀，证据充分"
+  },
+  "dimensions": [
+    {
+      "id": "visual",
+      "name": "美术与图像",
+      "scope": "framework",
+      "weight": 1,
+      "description": "风格、构图、角色/场景一致性、物件可辨识度；必须有实际图像证据"
+    },
+    {
+      "id": "interaction",
+      "name": "UI与操作布局",
+      "scope": "framework",
+      "weight": 1,
+      "description": "信息层级、物件与按钮布局、点击区域、遮挡和反馈"
+    },
+    {
+      "id": "audio",
+      "name": "音乐、音效与配音",
+      "scope": "story",
+      "weight": 1,
+      "description": "氛围、情境匹配、重复、语音质量；必须听到实际音频，未听到不评分"
+    },
+    {
+      "id": "coherence",
+      "name": "剧情与逻辑",
+      "scope": "story",
+      "weight": 1,
+      "description": "因果、世界设定、目标、时间、线索与结果的一致性"
+    },
+    {
+      "id": "dialogue",
+      "name": "人物与对白",
+      "scope": "story",
+      "weight": 1,
+      "description": "动机、语言、角色差异、记忆与回应是否切题"
+    },
+    {
+      "id": "atmosphere",
+      "name": "氛围与沉浸",
+      "scope": "story",
+      "weight": 1,
+      "description": "画面、声音、叙事和世界规则的配合"
+    },
+    {
+      "id": "agency",
+      "name": "核心玩法与选择",
+      "scope": "story",
+      "weight": 1,
+      "description": "行动意义、选择差异、解法、反馈与自主性"
+    },
+    {
+      "id": "exploration",
+      "name": "探索与任务设计",
+      "scope": "story",
+      "weight": 1,
+      "description": "地图路线、任务指引、线索获取、前置与支线"
+    },
+    {
+      "id": "combat",
+      "name": "战斗与策略",
+      "scope": "story",
+      "weight": 1,
+      "description": "战斗反馈、敌我差异、技能组合与检定；无此机制则不适用，未玩到则证据不足"
+    },
+    {
+      "id": "balance",
+      "name": "成长、资源与平衡",
+      "scope": "story",
+      "weight": 1,
+      "description": "奖励、消耗、难度、失败代价与成长价值"
+    },
+    {
+      "id": "engagement",
+      "name": "节奏与持续吸引力",
+      "scope": "story",
+      "weight": 1,
+      "description": "推进、悬念、重复、等待与继续意愿；是体验判断，不是实际留存率"
+    },
+    {
+      "id": "closure",
+      "name": "内容、收束与重玩价值",
+      "scope": "story",
+      "weight": 1,
+      "description": "仅根据完成及多路线证据判断；未见结局不得评价收束"
+    },
+    {
+      "id": "reliability",
+      "name": "技术可靠性与恢复",
+      "scope": "framework",
+      "weight": 1,
+      "description": "卡住、超时、生成失败、降级、存档与恢复"
+    }
+  ]
+}
