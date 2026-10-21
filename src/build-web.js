@@ -6,3 +6,5 @@ await copyFile('config/rubric.json','web/dist/data/rubric.json');
 console.log('知识库已同步到网页');
 
 for (const [source,dest] of [["knowledge/barovia.json","barovia.json"],["reports/barovia-ui-findings.json","barovia-bugs.json"],["reports/barovia-stage-review.md","barovia-review.md"],["docs/如何测试DokiWorlds故事.md","playbook.md"]]) await copyFile(source,`web/dist/data/${dest}`);
+
+await copyFile("reports/barovia-scorecard.json","web/dist/data/barovia-scorecard.json");

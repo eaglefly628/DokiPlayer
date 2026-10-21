@@ -1,0 +1,205 @@
+{
+  "story": "雾锁巴罗维亚",
+  "scriptVersion": "v1.0.0",
+  "engineVersion": null,
+  "engineBuild": null,
+  "runStartingManualVersion": "0.2.1",
+  "latestLearningManualVersion": "0.2.6",
+  "rubricVersion": "draft-0.2.0",
+  "status": "stage_review",
+  "coverage": "单条新游戏路线，四项任务链；未验证全剧结局、失败替代路线、音频与战斗",
+  "overallScore": null,
+  "note": "主观评测者判断，证据限定本轮；不把未测项目记0分。",
+  "dimensions": [
+    {
+      "id": "visual",
+      "name": "美术与图像",
+      "scope": "framework",
+      "score": 78,
+      "status": "provisional",
+      "reason": "场景与人物风格统一；截图仅限本轮嵌入视口。",
+      "evidence": [
+        "B01",
+        "B06"
+      ]
+    },
+    {
+      "id": "interaction",
+      "name": "UI与操作布局",
+      "scope": "framework",
+      "score": 45,
+      "status": "provisional",
+      "reason": "多次短视口遮挡及隐藏继续提示；风险确认与判定详情清楚。",
+      "evidence": [
+        "UI-001",
+        "UI-002",
+        "UI-003",
+        "B36",
+        "B37"
+      ]
+    },
+    {
+      "id": "audio",
+      "name": "音乐、音效与配音",
+      "scope": "story",
+      "score": null,
+      "status": "insufficient_evidence",
+      "reason": "未获取充分证据；未见全剧结局不评收束。",
+      "evidence": []
+    },
+    {
+      "id": "coherence",
+      "name": "剧情与逻辑",
+      "scope": "story",
+      "score": 48,
+      "status": "provisional",
+      "reason": "两条同文案调查不足以支撑真相已说清；位置和行动结算文案错配。",
+      "evidence": [
+        "B16",
+        "B17",
+        "B20",
+        "B21",
+        "B33"
+      ]
+    },
+    {
+      "id": "dialogue",
+      "name": "人物与对白",
+      "scope": "story",
+      "score": 55,
+      "status": "provisional",
+      "reason": "能承接明确问题及既有经历，但核心动机经追问仍多为未知；部分段落受降级影响。",
+      "evidence": [
+        "B30",
+        "B35",
+        "B38"
+      ]
+    },
+    {
+      "id": "atmosphere",
+      "name": "氛围与沉浸",
+      "scope": "story",
+      "score": 74,
+      "status": "provisional",
+      "reason": "雾墙、失踪、资源匮乏及冷暗画面形成压迫感，UI与文案错配削弱沉浸。",
+      "evidence": [
+        "B01",
+        "B02",
+        "B03",
+        "B21",
+        "B33"
+      ]
+    },
+    {
+      "id": "agency",
+      "name": "核心玩法与选择",
+      "scope": "story",
+      "score": 66,
+      "status": "provisional",
+      "reason": "购买、赠礼、一次性75%检定和失败替代提示有实际规则反馈，替代失败分支未走。",
+      "evidence": [
+        "B21",
+        "B33",
+        "B36",
+        "B37"
+      ]
+    },
+    {
+      "id": "exploration",
+      "name": "探索与任务设计",
+      "scope": "story",
+      "score": 58,
+      "status": "provisional",
+      "reason": "任务前置与动态人物导航可用；多段往返及静态地点说明降低清晰度。",
+      "evidence": [
+        "B18",
+        "B28",
+        "B35"
+      ]
+    },
+    {
+      "id": "combat",
+      "name": "战斗与策略",
+      "scope": "story",
+      "score": null,
+      "status": "insufficient_evidence",
+      "reason": "未获取充分证据；未见全剧结局不评收束。",
+      "evidence": []
+    },
+    {
+      "id": "balance",
+      "name": "成长、资源与平衡",
+      "scope": "story",
+      "score": 55,
+      "status": "provisional",
+      "reason": "奖励与扣款核验一致，一次性风险明确；葡萄酒免费耗时采集与稀缺设定的关系不清。",
+      "evidence": [
+        "B21",
+        "B32",
+        "B34",
+        "B36"
+      ]
+    },
+    {
+      "id": "engagement",
+      "name": "节奏与持续吸引力",
+      "scope": "story",
+      "score": 55,
+      "status": "provisional",
+      "reason": "开场悬念吸引人，但重复调查、含糊动机与恢复等待降低持续兴趣。",
+      "evidence": [
+        "B03",
+        "B17",
+        "B29",
+        "B35"
+      ]
+    },
+    {
+      "id": "closure",
+      "name": "内容、收束与重玩价值",
+      "scope": "story",
+      "score": null,
+      "status": "insufficient_evidence",
+      "reason": "未获取充分证据；未见全剧结局不评收束。",
+      "evidence": []
+    },
+    {
+      "id": "reliability",
+      "name": "技术可靠性与恢复",
+      "scope": "framework",
+      "score": 45,
+      "status": "provisional",
+      "reason": "规则行动持续可完成，但多次在线校验失败与延迟回填，需要模型重试和人工核查。",
+      "evidence": [
+        "B09",
+        "B29",
+        "B30",
+        "B38"
+      ]
+    }
+  ],
+  "checkpoint": {
+    "availableQuests": 0,
+    "activeQuests": 0,
+    "completedQuests": 4,
+    "silver": 49,
+    "level": 3,
+    "gameLogEntries": 45,
+    "endingVerified": false
+  },
+  "artifacts": [
+    "雾锁巴罗维亚-四项任务完成.jpg",
+    "同行-说服判定详情.jpg",
+    "送酒-结算文案错位.jpg",
+    "雾锁巴罗维亚-游戏日志原文.txt"
+  ],
+  "timing": {
+    "sessionStartedAt": "2026-10-21T13:24:05.874Z",
+    "freshBaselineAt": "2026-10-21T13:25:46.947Z",
+    "exportedAt": "2026-10-21T14:29:08.937Z",
+    "sessionWallSeconds": 3903,
+    "purePlaySeconds": null,
+    "understandingSeconds": null,
+    "note": "会话墙钟含登录、等待、讨论、排障、报告整理与轮次间停顿，不等于纯游玩。"
+  }
+}
