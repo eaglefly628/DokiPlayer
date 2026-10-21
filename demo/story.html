@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><title>旧宅来信 · DokiPlayer 测试剧本</title>
+<style>body{background:#161a23;color:#e8e4db;font:20px/1.8 system-ui;max-width:720px;margin:10vh auto;padding:24px}button{display:block;background:#2b394b;color:inherit;border:1px solid #738398;border-radius:8px;padding:14px;margin:16px 0;font:inherit;cursor:pointer}small{color:#a9b8c9}</style>
+<small>DokiPlayer · 本地测试剧本</small><h1>旧宅来信</h1><main></main>
+<script>
+const scenes = {
+  start: ['你收到失踪姐姐的来信，信封上是今天的邮戳。信里写着：午夜前，到旧宅找我。你站在旧宅门外，门后传来熟悉的歌声。', [['敲门，呼唤姐姐','hall'],['沿窗户查看屋内','window']]],
+  hall: ['你敲了三下。歌声停止，门缓缓打开。桌上放着一台录音机和一封信，信上是姐姐的笔迹：“别相信歌声，拿走录音带。”', [['拿起录音带，离开旧宅','safe'],['播放录音带','truth']]],
+  window: ['你从窗外看见定时启动的录音机，歌声正从那里传出。窗沿上留着姐姐的钥匙，旁边刻着“保管箱17号”。', [['带着钥匙去车站','station'],['进屋查看录音机','hall']]],
+  safe: ['你带着录音带离开，天亮后把它交给警方。姐姐的线索仍未解开，但至少那声音再也无法困住你。'],
+  truth: ['录音中姐姐说：“我在车站等你，旧宅只是我们小时候的暗号。”你终于记起你们约定的逃生路线，转身奔向车站。'],
+  station: ['17号保管箱里是一张车票和姐姐的留言：“谢谢你记得我们的暗号。”检票口前，她正向你挥手。']
+};
+function show(id) { const [text,choices] = scenes[id]; const main=document.querySelector('main'); main.replaceChildren(); const p=document.createElement('p'); p.dataset.story=''; p.textContent=text; main.append(p); if(!choices){const end=document.createElement('h2');end.dataset.ending='';end.textContent='故事结束';main.append(end);} for(const [label,next] of choices||[]){const b=document.createElement('button');b.dataset.choice='';b.textContent=label;b.onclick=()=>{main.setAttribute('aria-busy','true');setTimeout(()=>{main.removeAttribute('aria-busy');show(next)},120)};main.append(b);} }
+show('start');
+</script></html>

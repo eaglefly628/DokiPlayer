@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { random, validateEvaluation } from '../src/core.js';
+const rubric={scale:{min:1,max:5},dimensions:[{id:'coherence',weight:1,scope:'story'},{id:'closure',weight:1,scope:'story'},{id:'reliability',weight:1,scope:'framework'}]};
+const run={status:'step_limit',observations:[{id:'step-1'}]};
+const result=()=>({summary:'仅覆盖开局',dimensions:[{id:'coherence',score:4,reason:'前后承接',evidence:['step-1']},{id:'closure',score:null,reason:'未观察结局',evidence:[]},{id:'reliability',score:2,reason:'超时',evidence:['step-1']}]});
+test('相同seed重现选项轨迹',()=>{const a=random(42),b=random(42);assert.deepEqual(Array.from({length:20},()=>a()),Array.from({length:20},()=>b()));});
+test('故事与框架分别聚合，不合并总分',()=>{const r=validateEvaluation(result(),rubric,run);assert.equal(r.groups.story.score,4);assert.equal(r.groups.framework.score,2);assert.equal(r.overall,null);});
+test('拒绝虚构证据和无证据评分',()=>{const r=result();r.dimensions[0].evidence=['step-999'];assert.throws(()=>validateEvaluation(r,rubric,run),/证据/);r.dimensions[0].evidence=[];assert.throws(()=>validateEvaluation(r,rubric,run),/分数/);});
+test('未通关时拒绝结局评分',()=>{const r=result();r.dimensions[1]={id:'closure',score:5,reason:'假定通关',evidence:['step-1']};assert.throws(()=>validateEvaluation(r,rubric,run),/结局/);});
+test('拒绝缺失、重复或超范围的评分',()=>{const r=result();r.dimensions[0].score=6;assert.throws(()=>validateEvaluation(r,rubric,run));r.dimensions.pop();assert.throws(()=>validateEvaluation(r,rubric,run));});

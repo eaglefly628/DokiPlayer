@@ -1,0 +1,19 @@
+{
+  "name": "dokiplayer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "DokiWorlds 网页剧本自动游玩与循证评测",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env src/server.js",
+    "build:web": "node src/build-web.js",
+    "demo": "node src/cli.js play config/demo.json",
+    "play": "node src/cli.js play",
+    "login": "node src/cli.js login",
+    "evaluate": "node src/cli.js evaluate",
+    "test": "node --test test/*.test.js",
+    "test:browser": "node --test test/browser.integration.js"
+  },
+  "dependencies": { "playwright": "^1.56.0" }
+}

@@ -1,0 +1,79 @@
+{
+  "version": "draft-0.1",
+  "scale": {
+    "min": 1,
+    "max": 5
+  },
+  "anchors": {
+    "1": "观察到反复或严重缺陷，显著破坏本次体验",
+    "2": "观察到明显缺陷，影响本次体验",
+    "3": "本次观察基本成立，优点与缺点并存",
+    "4": "本次观察表现良好，仅有轻微缺陷",
+    "5": "本次观察持续表现优秀，有具体证据支撑"
+  },
+  "dimensions": [
+    {
+      "id": "coherence",
+      "name": "叙事一致性",
+      "weight": 1,
+      "description": "已观察情节的因果、设定与前后信息是否一致",
+      "scope": "story"
+    },
+    {
+      "id": "character",
+      "name": "人物可信度",
+      "weight": 1,
+      "description": "人物动机、语言、行为是否连贯可信",
+      "scope": "story"
+    },
+    {
+      "id": "agency",
+      "name": "选择与反馈",
+      "weight": 1,
+      "description": "选项是否清晰且有差异，所选行动是否获得相应反馈；不能据单路线推断其他分支",
+      "scope": "story"
+    },
+    {
+      "id": "pacing",
+      "name": "节奏与吸引力",
+      "weight": 1,
+      "description": "已观察片段的信息密度、推进节奏和悬念",
+      "scope": "story"
+    },
+    {
+      "id": "writing",
+      "name": "表达质量",
+      "weight": 1,
+      "description": "语言清晰度、细节表现、重复与措辞问题",
+      "scope": "story"
+    },
+    {
+      "id": "closure",
+      "name": "收束与完成度",
+      "weight": 1,
+      "description": "仅当观察到明确结局时，判断已出现线索的收束情况；否则证据不足",
+      "scope": "story"
+    },
+    {
+      "id": "visual",
+      "name": "画面与可读性",
+      "scope": "framework",
+      "weight": 1,
+      "description": "仅根据提供截图判断构图、文字可读性、遮挡及风格一致性；不能推断动态流畅度"
+    },
+    {
+      "id": "interaction",
+      "name": "操作与反馈",
+      "scope": "framework",
+      "weight": 1,
+      "description": "操作含义、反馈、加载状态、教程和错误恢复是否可理解"
+    },
+    {
+      "id": "reliability",
+      "name": "运行可靠性",
+      "scope": "framework",
+      "weight": 1,
+      "description": "本次观察中的卡住、超时、校验失败与降级是否影响体验；不得推断总体故障率"
+    }
+  ]
+}

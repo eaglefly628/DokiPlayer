@@ -1,0 +1,18 @@
+{
+  "version":"0.1",
+  "updatedOn":"2026-10-21",
+  "principle":"从新手引导和实玩积累；区分来源和验证程度；单个故事的表现不能直接推广为全部故事。",
+  "rules":[
+    {"id":"cards","scope":"framework","status":"tutorial_stated","source":"sources/tutorial-2026-10-21.json#read-card","rule":"先读行动说明、费用、概率；牌型和稀有度不是行动推荐理由。"},
+    {"id":"click-submits","scope":"framework","status":"play_verified","source":"sources/tutorial-2026-10-21.json#submit","rule":"点击可用牌立即提交，没有二次确认。观察与行动必须分开；不能为了查看说明而随意点击。"},
+    {"id":"settlement","scope":"framework","status":"tutorial_stated","source":"sources/tutorial-2026-10-21.json#feedback","rule":"对照人物回应、行动结果、压力和精力变化。出牌与正式结算不同；失败也可能有消耗。"},
+    {"id":"rest","scope":"framework","status":"tutorial_stated","source":"sources/tutorial-2026-10-21.json#rest","rule":"休整恢复精力，上限10；推进时间可能使人物离开或交谈结束，不会自动完成剧情。"},
+    {"id":"pressure","scope":"framework","status":"tutorial_stated","source":"sources/tutorial-2026-10-21.json#pressure","rule":"警戒时考虑符合条件的缓解牌或休整；具体阈值尚未验证。"},
+    {"id":"probability","scope":"framework","status":"tutorial_stated","source":"sources/tutorial-2026-10-21.json#chance","rule":"成功率不是保证，单次失败不等于逻辑错误。判断前核对属性、难度、消耗和关系变化。"},
+    {"id":"dialogue-not-movement","scope":"framework","status":"hypothesis","source":"2026-10-21鬼故事开局实玩","rule":"对话中说要去某处未必执行移动；需核对行动类型与结算结果。此次两次对话牌后仍在交谈，尚未验证移动机制。"},
+    {"id":"online-recovery","scope":"framework","status":"user_reported","source":"2026-10-21用户经验；辅助工具入口已观察","rule":"在线反馈失败时，展开左上角辅助工具，换一个较快模型，再重试在线回应。速度与恢复效果待验证。记录原模型、新模型、失败提示、等待时间、结果和钻石消耗。"},
+    {"id":"fallback","scope":"framework","status":"play_verified","source":"2026-10-21鬼故事实玩","rule":"观察到AI回应未通过校验及AI回应超时，随后显示本地回应。记录框架可靠性问题，并标记该段故事体验受降级影响。"},
+    {"id":"prologue","scope":"framework","status":"play_verified","source":"2026-10-21鬼故事序章","rule":"左下角点击揭示下一格逐格推进；最后显示点击开始行动，再进入章节卡，点击继续旅程进入正文。仅在鬼故事已验证。"}
+  ],
+  "unknowns":["其他故事是否复用同一序章流程","压力阈值与各属性具体规则","地图移动与非对话行动的完整流程","结局的稳定页面标识","自由输入的边界与结算方式","不同模型的实际速度与恢复成功率"]
+}

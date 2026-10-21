@@ -1,0 +1,15 @@
+{
+  "name": "旧宅来信-demo",
+  "url": "../demo/story.html",
+  "headless": true,
+  "maxSteps": 12,
+  "timeoutMs": 10000,
+  "settleMs": 300,
+  "strategy": { "type": "seeded", "seed": 42 },
+  "selectors": {
+    "story": "[data-story]",
+    "choices": "[data-choice]",
+    "ending": "[data-ending]",
+    "loading": "[aria-busy=true]"
+  }
+}

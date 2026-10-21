@@ -1,0 +1,23 @@
+{
+  "name": "DokiWorlds-鬼故事",
+  "url": "https://test.aimeng.ai/scripts/creator_0631fb15d8264be3b24a05d432a2a4b2",
+  "adapterStatus": "opening_cards_verified_ending_pending",
+  "headless": false,
+  "storageState": "../.auth/aimeng.json",
+  "maxSteps": 50,
+  "timeoutMs": 60000,
+  "settleMs": 1200,
+  "strategy": {
+    "type": "seeded",
+    "seed": 42
+  },
+  "entryButton": "免费体验：鬼故事",
+  "selectors": {
+    "story": "[data-testid=\"conversation-script\"]",
+    "choices": "button[data-continuous-card=\"true\"][data-card-available=\"true\"]",
+    "ending": null,
+    "loading": "[data-testid=\"continuous-submitting\"]"
+  },
+  "adapter": "aimeng",
+  "manualPreparation": true
+}
