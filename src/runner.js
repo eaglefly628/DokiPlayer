@@ -5,6 +5,7 @@ import { randomUUID } from 'node:crypto';
 import { observe, act } from './browser.js';
 import { random, signature } from './core.js';
 import { decide } from './player.js';
+import {saveUsage} from './usage.js';
 
 export async function launch(config) {
   const browser = await chromium.launch({headless:config.headless});
@@ -53,7 +54,7 @@ export async function play(config, {prepare, outputRoot='runs', onProgress=()=>{
       if(s.ending) {run.status='completed';break;}
       if(n===config.maxSteps) {run.status='step_limit';break;}
       const choice=s.choices[config.strategy.type==='first'?0:Math.floor(rng()*s.choices.length)];
-      const action=s.advance || (config.strategy.type==='model' ? await decide(run,config) : {type:'choice',...choice, reason:'流程验证策略，不代表玩家逻辑判断',expected:'页面或行动反馈发生变化'});
+      const action=s.advance || (config.strategy.type==='model' ? await decide(run,config,directory) : {type:'choice',...choice, reason:'流程验证策略，不代表玩家逻辑判断',expected:'页面或行动反馈发生变化'});
       run.actions.push({observation:id,...action});
       onProgress({run,directory});
       await act(page,config,action);
@@ -73,6 +74,7 @@ export async function play(config, {prepare, outputRoot='runs', onProgress=()=>{
       await session.context.tracing.stop({path:resolve(directory,'trace.zip')}).catch(()=>{});
       await session.browser.close();
     }
+    await saveUsage(directory,run);
     run.finishedAt=new Date().toISOString();
     await writeFile(resolve(directory,'run.json'),JSON.stringify(run,null,2));
     onProgress({run,directory});

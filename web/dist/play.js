@@ -1,3 +1,4 @@
+import {summarizeUsage} from './api-usage.js';
 import {elapsedMs,endSession,resumeSession,formatElapsed} from './session-clock.js';
 const $=s=>document.querySelector(s), escape=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const [manual,rubric]=await Promise.all(['playbook','rubric'].map(f=>fetch(`/data/${f}.json`).then(r=>r.json())));
@@ -20,6 +21,8 @@ function record(kind,advance=false){versions();const step=manual.steps[Math.min(
 $('#restart-session').onclick=()=>{location.href=location.pathname+'?newSession=1';};
 $('#complete-step').onclick=()=>record('流程确认',true);$('#record-only').onclick=()=>record('操作记录');$('#record-blocker').onclick=()=>record('卡点');
 $('#connect-game').onclick=()=>{const frame=$('#game-frame');if(!frame.src){frame.src='https://test.aimeng.ai/scripts/creator_d72affd9165148d68a2eee480b42f13b';frame.hidden=false;$('#game-placeholder').hidden=true;session.events.push({id:crypto.randomUUID(),at:new Date().toISOString(),stage:'工作台入口',kind:'入口操作',action:'在工作台下方载入雾锁巴罗维亚主菜单',result:'已发起载入；页面能否显示与登录状态需现场核验',manualVersion:session.manualVersion});persist();render();}$('#connect-game').textContent='已发起载入';};
+function renderUsage(){const s=summarizeUsage(session.apiCalls);$('#usage-summary').textContent=!s.calls?'未采集 API 用量，不能推算本轮实际费用。':`已导入 ${s.calls} 次调用 · 已知 ${s.total.toLocaleString()} Token（输入 ${s.input}，其中缓存 ${s.cached}；输出 ${s.output}） · 缺失 ${s.missing} 次 · 已知 API 预估 $${s.apiEstimateUsd.toFixed(6)} · 订阅 API 等价参考 $${s.subscriptionEquivalentUsd.toFixed(6)} · 未计价 ${s.unpriced} 次。费用不是账单，不含游戏内 AI 与基础设施。`;session.usageSummary=s;}
+$('#usage-import').onchange=async e=>{try{const data=JSON.parse(await e.target.files[0].text());const calls=data.calls||data.apiCalls;if(!Array.isArray(calls)||calls.some(c=>!['player','judge'].includes(c.role)||!['api','subscription'].includes(c.mode)||c.usage&&!['input','output','cached','total'].every(k=>Number.isFinite(c.usage[k])&&c.usage[k]>=0)))throw Error();session.apiCalls=calls;renderUsage();persist();notify('已替换本轮用量导入，重复导入不会重复累计');}catch{notify('用量文件格式无效，请导入执行器生成的 usage.json');}e.target.value='';};
 function renderClock(){
  $('#session-time').textContent=formatElapsed(elapsedMs(session));
  $('#timer-state').textContent=session.endedAt?'已结束':'计时中';
@@ -34,5 +37,5 @@ $('#toggle-session').onclick=()=>{
 $('#show-instructions').onclick=()=>$('#embed-help').hidden=!$('#embed-help').hidden;
 function download(name,body,type){const url=URL.createObjectURL(new Blob([body],{type})),a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url);}
 $('#download-session').onclick=()=>{versions();persist();download(`DokiPlayer-${session.id}.json`,JSON.stringify({...session,elapsedMs:elapsedMs(session),exportedAt:new Date().toISOString()},null,2),'application/json');};
-$('#download-markdown').onclick=()=>{versions();const lines=[`# ${session.name} · 工作台流程记录`,'',`引擎：${session.engineVersion||'未确认'} / ${session.engineBuild||'未确认'}`,`剧本：${session.scriptVersion||'未确认'}`,`手册：${session.manualVersion}`,`新游戏起点已核验：${session.newGameVerified?'是':'否'}`,`会话开始：${session.createdAt}`,`会话状态：${session.endedAt?'已结束':'计时中'}`,`会话结束：${session.endedAt||'尚未结束'}`,`会话用时：${formatElapsed(elapsedMs(session))}`,`导出：${new Date().toISOString()}`,'','会话用时包含准备、讨论与等待，不等于纯游玩时长。','',...session.events.flatMap(e=>[`## ${e.stage} · ${e.kind}`,e.at,'',e.action,'',`实际反馈：${e.result}`,''])];download(`DokiPlayer-${session.id}.md`,lines.join('\n'),'text/markdown');};
-setInterval(renderClock,1000);render();renderClock();persist();
+$('#download-markdown').onclick=()=>{versions();const lines=[`# ${session.name} · 工作台流程记录`,'',`引擎：${session.engineVersion||'未确认'} / ${session.engineBuild||'未确认'}`,`剧本：${session.scriptVersion||'未确认'}`,`手册：${session.manualVersion}`,`新游戏起点已核验：${session.newGameVerified?'是':'否'}`,`会话开始：${session.createdAt}`,`会话状态：${session.endedAt?'已结束':'计时中'}`,`会话结束：${session.endedAt||'尚未结束'}`,`会话用时：${formatElapsed(elapsedMs(session))}`,`Token 与费用：${$('#usage-summary').textContent}`,`导出：${new Date().toISOString()}`,'','会话用时包含准备、讨论与等待，不等于纯游玩时长。','',...session.events.flatMap(e=>[`## ${e.stage} · ${e.kind}`,e.at,'',e.action,'',`实际反馈：${e.result}`,''])];download(`DokiPlayer-${session.id}.md`,lines.join('\n'),'text/markdown');};
+renderUsage();setInterval(renderClock,1000);render();renderClock();persist();

@@ -56,3 +56,12 @@ Sites 使用独立发布检出目录（本次位于工作区 `work/dokiplayer-si
 `src/` 包含浏览器采集、玩家、评审、命令行和本地服务。`config/` 配置页面适配与评分草案。`knowledge/` 保存知识与来源。`docs/` 保存测试流程。`web/` 是独立 Sites 发布目录，仅包含网页和选定知识数据，不包含登录状态、密钥或运行记录。
 
 浏览器实现参考 [Playwright Page API](https://playwright.dev/docs/api/class-page) 与 [BrowserContext API](https://playwright.dev/docs/api/class-browsercontext)。
+
+
+## 模型设置与 Token 费用
+
+打开 `/settings.html`，分别配置玩家与评审：OpenAI、DeepSeek 或自定义 Chat Completions 兼容接口；填写账号实际可用的模型。密钥仅保存本机 `.auth/model-settings.json`（0600、忽略提交），不会回显，也不保存在 localStorage。可填写自定义输入/缓存/输出单价，单位 USD / 百万 Token。OpenAI 官方接口的精确已知模型使用 `config/pricing.json` 的有日期快照，其他模型不猜价格。
+
+本地订阅选项调用本机 `codex exec --json`，通过 `codex login` 官方授权，`DOKIPLAYER_CODEX_BIN` 可指定可执行文件；没有订阅登录时明确失败，不自动改用 API 扣费。无需打开 Codex 桌面应用，但需要本机执行器与 CLI 持续可用。订阅接入仅用于可信本地工作流，不能把其凭证部署到托管网站给访客共用。线上静态版只提供本机设置入口，尚未提供云端模型执行、云端密钥保管、与本地执行器实时配对。
+
+每轮 `usage.json` 累计玩家、评审、失败调用和重新评审的用量；评审格式错误也保留已收到的 usage。`report.md` / `evaluation.json` 包含汇总。工作台可导入本轮 usage.json，导出 JSON/文本保留统计。预算计算器使用假设 Token 数，不会回填昨天 Codex 的历史用量。图片包含于供应商回报的输入 Token，推理不重复加到输出。未知 usage / 价格显示缺失，不当零成本。费用仅为模型 API 参考值，订阅等价值单列；不含游戏自身 AI、税费、区域差异、工具、MCP 与基础设施。

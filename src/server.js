@@ -5,6 +5,8 @@ import { randomUUID } from 'node:crypto';
 import { loadConfig } from './core.js';
 import { play } from './runner.js';
 import { evaluate } from './evaluator.js';
+import {loadModelSettings,saveModelSettings,publicSettings,modelConfig} from './model-settings.js';
+import {codexStatus,callModel} from './model-call.js';
 
 const root=resolve('web/dist'), jobs=new Map();
 const port=Number(process.env.PORT||4317);
@@ -18,6 +20,8 @@ const server=http.createServer(async(req,res)=>{
       const chunks=[];let length=0;
       for await(const chunk of req) {length+=chunk.length;if(length>10000) return send(413,{error:'请求过大'});chunks.push(chunk);}
       const body=JSON.parse(Buffer.concat(chunks).toString()||'{}');
+      if(url.pathname==='/api/model-settings'){if([...jobs.values()].some(j=>!['done','failed','cancelled'].includes(j.phase)))return send(409,{error:'请先结束当前任务再修改模型'});return send(200,await saveModelSettings(body));}
+      if(url.pathname==='/api/model-test'){const run={};const {body:reply}=await callModel({role:body.role==='judge'?'judge':'player',run,messages:[{role:'user',content:'仅输出JSON：{"connected":true}'}]});return send(200,{ok:true,usage:run.apiCalls,summary:run.usageSummary});}
       if(url.pathname==='/api/jobs') {
         if([...jobs.values()].some(j=>!['done','failed','cancelled'].includes(j.phase))) return send(409,{error:'请先完成或停止当前任务'});
         if(!['demo','aimeng'].includes(body.config)) return send(400,{error:'未知配置'});
@@ -62,7 +66,9 @@ const server=http.createServer(async(req,res)=>{
       }
       return send(404,{error:'入口不存在'});
     }
-    if(url.pathname==='/api/status')return send(200,{local:true,player:!!process.env.PLAYER_MODEL,judge:!!process.env.JUDGE_MODEL});
+    if(url.pathname==='/api/model-settings')return send(200,{settings:publicSettings(await loadModelSettings())});
+    if(url.pathname==='/api/codex-status')return send(200,await codexStatus());
+    if(url.pathname==='/api/status')return send(200,{local:true,player:!!(await modelConfig('player')).model,judge:!!(await modelConfig('judge')).model});
     if(url.pathname==='/api/jobs')return send(200,[...jobs.values()].map(({session,resume,reject,...data})=>({...data,directory:data.directory?basename(data.directory):null})));
     if(url.pathname.startsWith('/api/evidence/')) {
       const [, , ,id,file]=url.pathname.split('/');const job=jobs.get(id);

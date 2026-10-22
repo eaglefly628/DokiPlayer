@@ -1,0 +1,23 @@
+{
+  "currency": "USD",
+  "checkedAt": "2026-10-22",
+  "source": "https://developers.openai.com/api/docs/pricing",
+  "assumption": "OpenAI 标准速度、短上下文单价快照；不含税、区域附加费、工具与浏览器费用。其他供应商须填写自定义单价。",
+  "models": {
+    "gpt-6.1-sol": {
+      "input": 2,
+      "cached": 0.1,
+      "output": 10
+    },
+    "gpt-6-luna": {
+      "input": 0.1,
+      "cached": 0.01,
+      "output": 0.5
+    },
+    "gpt-6-astra": {
+      "input": 10,
+      "cached": 1,
+      "output": 50
+    }
+  }
+}

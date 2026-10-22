@@ -1,6 +1,6 @@
 {
-  "manualVersion": "0.2.7",
-  "updatedAt": "2026-10-21",
+  "manualVersion": "0.2.8",
+  "updatedAt": "2026-10-22",
   "compatibility": {
     "engineVersion": "v0.0.564",
     "engineBuild": "6c650f5",
@@ -130,6 +130,11 @@
       "version": "0.2.7",
       "date": "2026-10-21",
       "changes": "增加评测结束冻结计时、刷新持久化、继续计时排除结束间隔，以及导出结束时间与累计用时。"
+    },
+    {
+      "version": "0.2.8",
+      "date": "2026-10-22",
+      "changes": "增加模型接入设置、本机订阅授权与 API 用量流水；Token、API 估算与订阅等价费用分开，缺失用量不回填。"
     }
   ]
 }
