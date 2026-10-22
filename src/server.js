@@ -42,7 +42,7 @@ const server=http.createServer(async(req,res)=>{
               }:undefined
             });
             job.directory=result.directory;job.run=result.run;
-            job.phase='evaluating';job.evaluation=await evaluate(result.directory);job.phase=result.run.status==='failed'?'failed':'done';
+            job.phase='evaluating';job.evaluation=await evaluate(result.directory,'config/rubric.json',{visual:body.visual===true});job.usageSummary=job.evaluation.usageSummary;job.phase=result.run.status==='failed'?'failed':'done';
           } catch(e) {job.phase='failed';job.error=e.message;}
           finally {if(job.cancelled)job.phase='cancelled';job.session=null;job.resume=null;job.reject=null;}
         })(); return;
@@ -60,7 +60,7 @@ const server=http.createServer(async(req,res)=>{
         }
         if(match[2]==='evaluate') {
           if(!['done','failed'].includes(job.phase))return send(409,{error:'请先等待游玩结束'});
-          job.evaluation=await evaluate(job.directory,'config/rubric.json',{visual:body.visual===true});return send(200,job.evaluation);
+          job.evaluation=await evaluate(job.directory,'config/rubric.json',{visual:body.visual===true});job.usageSummary=job.evaluation.usageSummary;return send(200,job.evaluation);
         }
         job.cancelled=true;job.reject?.(Error('用户停止'));await job.session?.browser.close();job.phase='cancelled';return send(200,{ok:true});
       }
@@ -69,7 +69,7 @@ const server=http.createServer(async(req,res)=>{
     if(url.pathname==='/api/model-settings')return send(200,{settings:publicSettings(await loadModelSettings())});
     if(url.pathname==='/api/codex-status')return send(200,await codexStatus());
     if(url.pathname==='/api/status')return send(200,{local:true,player:!!(await modelConfig('player')).model,judge:!!(await modelConfig('judge')).model});
-    if(url.pathname==='/api/jobs')return send(200,[...jobs.values()].map(({session,resume,reject,...data})=>({...data,directory:data.directory?basename(data.directory):null})));
+    if(url.pathname==='/api/jobs')return send(200,[...jobs.values()].map(({session,resume,reject,...data})=>({...data,usageSummary:data.usageSummary||data.run?.usageSummary,directory:data.directory?basename(data.directory):null})));
     if(url.pathname.startsWith('/api/evidence/')) {
       const [, , ,id,file]=url.pathname.split('/');const job=jobs.get(id);
       if(!job?.directory || !/^step-\d+\.png$/.test(file))return send(404,{error:'证据不存在'});
