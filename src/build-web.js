@@ -10,3 +10,5 @@ for (const [source,dest] of [["knowledge/barovia.json","barovia.json"],["reports
 await copyFile("reports/barovia-scorecard.json","web/dist/data/barovia-scorecard.json");
 
 await copyFile('config/pricing.json','web/dist/data/pricing.json');
+
+await copyFile('config/stories.json','web/dist/data/stories.json');
